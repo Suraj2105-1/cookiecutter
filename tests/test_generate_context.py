@@ -395,4 +395,7 @@ def test_apply_overwrites_internal_config_injected():
     context = {'project': 'test'}
     overwrite_context = {'_jinja2_env_vars': {'variable_start_string': '{@@'}}
     generate.apply_overwrites_to_context(context, overwrite_context)
-    assert context == {'project': 'test', '_jinja2_env_vars': {'variable_start_string': '{@@'}}
+    assert context == {
+        'project': 'test',
+        '_jinja2_env_vars': {'variable_start_string': '{@@'},
+    }
