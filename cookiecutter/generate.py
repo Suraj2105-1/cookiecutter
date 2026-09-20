@@ -470,10 +470,11 @@ def generate_files(
             for command in commands:
                 logger.debug('Running post_gen_command: %s', command)
                 try:
-                    subprocess.run(command, shell=True, cwd=project_dir, check=True)
+                    subprocess.run(command, shell=True, cwd=project_dir, check=True)  # noqa: S602
                 except subprocess.CalledProcessError as err:
                     if delete_project_on_failure:
                         rmtree(project_dir)
-                    raise FailedHookException(f"post_gen_command failed: {err}") from err
+                    msg = f"post_gen_command failed: {err}"
+                    raise FailedHookException(msg) from err
 
     return project_dir
